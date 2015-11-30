@@ -3,6 +3,7 @@
  *
  *  Created on: 2015年11月30日
  *      Author: panzg
+ *      Description : 公共头文件   
  */
 
 #ifndef STD_HPP_
