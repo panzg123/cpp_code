@@ -6,7 +6,7 @@
  *      Description :asio 操作文件描述符demo，此处是从标准输入流中异步读取数据
  */
 
-#include <std.hpp>
+#include "std.hpp"
 using namespace std;
 
 #include <boost/function.hpp>
@@ -17,6 +17,8 @@ using namespace boost::asio;
 using namespace boost::system;
 
 //////////////////////////////////////////
+
+#if 0
 int main()
 {
     io_service io;
@@ -70,4 +72,4 @@ int main()
     io.run(); //启动时间循环
 }
 
-
+#endif
