@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : test.cpp
+// Name        : pstring_test.cpp
 // Author      : panzg
 // Version     :
 // Copyright   : Your copyright notice
@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include<vector>
-#include"p_string.h"
+#include"../src/p_string.h"
 using namespace std;
 
 void foo(p_string x)
@@ -24,7 +24,7 @@ p_string baz()
 	p_string ret("world");
 	return ret;
 }
-
+#if 0
 int main()
 {
 	p_string s0;
@@ -50,3 +50,4 @@ int main()
 	svec.push_back(baz());
 	svec.push_back("good job");
 }
+#endif
