@@ -11,3 +11,6 @@
 10. Union_set.cpp     并查集模板
 11. Var_template.cpp 可变参数函数和可变参数模板类 demo
 12. which_day_of_week.c 判断某天是星期几
+13. conf_utils.h / conf_unit_test.cpp 读取配置文件的工具
+14. p_string.h / pstring_test.cpp 简单string的实现
+15. string_utils / string_utils_test.cpp c++中string常见操作的封装，比如分割、替换、文件读写等
