@@ -1,4 +1,5 @@
-#basic
+basic
+=====================
 1. Count.java       统计源代码行数
 2. format.hpp       模拟实现c++的格式化类，c++11
 3. int128           实现128位的计数器
@@ -14,3 +15,4 @@
 13. conf_utils.h / conf_unit_test.cpp 读取配置文件的工具
 14. p_string.h / pstring_test.cpp 简单string的实现
 15. string_utils / string_utils_test.cpp c++中string常见操作的封装，比如分割、替换、文件读写等
+16. BasicApp.java + My_thread.java 多线程模拟并发，测达梦 ; Jdbc_mysql_demo.java 测试mysql
