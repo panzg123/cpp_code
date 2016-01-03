@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : string_utils.h
-// Author      : panzg & HondaDai
+// Author      : panzg & HondaDai &chenshuo
 // Version     : v1
 // Copyright   : 参考-->https://github.com/HondaDai/StringUtils
 // Description :string_utils,c++字符串的常见操作的打包，分割，查找，删除，读文件，写文件等
@@ -13,6 +13,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <cstdio>
 /*删除多余的空白符*/
 static inline std::vector<std::string> Compact(
 		const std::vector<std::string> &tokens)
@@ -175,6 +176,29 @@ static inline void WriteFile(const std::string &filepath,
 	ofs << content;
 	ofs.close();
 	return;
+}
+
+// 读取文件内容到字符串，参考：陈硕
+string cs_readFile(const char* filename)
+{
+  string content;
+  FILE* fp = ::fopen(filename, "rb");
+  if (fp)
+  {
+    // inefficient!!!
+    const int kBufSize = 1024*1024;
+    char iobuf[kBufSize];
+    ::setbuffer(fp, iobuf, sizeof iobuf);
+
+    char buf[kBufSize];
+    size_t nread = 0;
+    while ( (nread = ::fread(buf, 1, sizeof buf, fp)) > 0)
+    {
+      content.append(buf, nread);
+    }
+    ::fclose(fp);
+  }
+  return content;
 }
 
 #endif
