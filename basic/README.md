@@ -18,3 +18,4 @@ basic
 16. BasicApp.java + My_thread.java 多线程模拟并发，测达梦 ; Jdbc_mysql_demo.java 测试mysql
 17. gcc_c_asm.c     gcc内嵌汇编demo
 18. Implement_trie.cpp 前缀树，数据结构的实现
+19. kmp.cpp kmp匹配，算法的实现
