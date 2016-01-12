@@ -19,3 +19,6 @@ basic
 17. gcc_c_asm.c     gcc内嵌汇编demo
 18. Implement_trie.cpp 前缀树，数据结构的实现
 19. kmp.cpp kmp匹配，算法的实现
+* simple_block_http_client.cpp 简单的阻塞式http请求程序
+* select_fork_rot13_server.cpp select+one process per connection+nonblocking的rot13服务器
+* libevent_async_rot13_server.cpp 基于libevent的异步rot13服务器
