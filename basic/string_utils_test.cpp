@@ -6,7 +6,7 @@
 // Description : 对string_utils的测试
 //============================================================================
 #include <iostream>
-#include "../src/string-utils.h"
+#include "string-utils.h"
 
 bool eq(std::vector<std::string> v1, std::vector<std::string> v2)
 {
@@ -30,7 +30,7 @@ bool eq(std::string s1, std::string s2)
 	return s1 == s2;
 }
 
-#if 0
+#if 1
 int main(int argc, char *argv[])
 {
 
