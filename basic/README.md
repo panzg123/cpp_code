@@ -22,3 +22,4 @@ basic
 * simple_block_http_client.cpp 简单的阻塞式http请求程序
 * select_fork_rot13_server.cpp select+one process per connection+nonblocking的rot13服务器
 * libevent_async_rot13_server.cpp 基于libevent的异步rot13服务器
+* 4char2int.cpp 拼接char为int,按位与或操作
