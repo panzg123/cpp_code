@@ -12,3 +12,4 @@ C++的学习记录
 9. Winsock windows网络编程例子
 10. tsp 用DP来求解TSP问题，适用于小规模节点
 11. `TextQuery` c++ primer,chapter 12,shared_ptr的使用例子
+12. StrVec,vector<string>的简单实现
