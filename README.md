@@ -13,3 +13,4 @@ C++的学习记录
 10. tsp 用DP来求解TSP问题，适用于小规模节点
 11. `TextQuery` c++ primer,chapter 12,shared_ptr的使用例子
 12. StrVec,vector<string>的简单实现
+13. `smart_ptr.cpp`智能指针的简单实现，引用计数法
