@@ -48,7 +48,7 @@ public:
     // emplace member covered in chapter 16
     template <class... Args> void emplace_back(Args&&...);
 private:
-    static std::allocator<std::string> alloc; // allocates the elements
+    static std::allocator<std::string> alloc; // 内存分配器
 
     // utility functions:
     //  used by members that add elements to the StrVec
@@ -57,11 +57,11 @@ private:
     // used by the copy constructor, assignment operator, and destructor
     std::pair<std::string*, std::string*> alloc_n_copy
             (const std::string*, const std::string*);
-    void free();             // destroy the elements and free the space
-    void reallocate();       // get more space and copy the existing elements
-    std::string *elements;   // pointer to the first element in the array
-    std::string *first_free; // pointer to the first free element in the array
-    std::string *cap;        // pointer to one past the end of the array
+    void free();             // 销毁元素并释放内存
+    void reallocate();       // 分配更多内存并拷贝元素
+    std::string *elements;   // 指向数组的首元素的指针
+    std::string *first_free; // 指向数组的第一个空闲元素的指针
+    std::string *cap;        // 指向数组尾后位置的指针
 };
 
 #include <algorithm>
@@ -73,40 +73,43 @@ inline
 std::pair<std::string*, std::string*>
 StrVec::alloc_n_copy(const std::string *b, const std::string *e)
 {
-    // allocate space to hold as many elements as are in the range
+    // 分配空间保存给定范围的元素
     auto data = alloc.allocate(e - b);
-
-    // initialize and return a pair constructed from data and
-    // the value returned by uninitialized_copy
+    
+    // 通过uninitialized_copy来拷贝数据
+    // 返回新分配空间的开始位置和拷贝的尾后位置
     return {data, uninitialized_copy(b, e, data)};
 }
 
 inline
-StrVec::StrVec(StrVec &&s) noexcept  // move won't throw any exceptions
-// member initializers take over the resources in s
+StrVec::StrVec(StrVec &&s) noexcept  // 移动构造函数不应该抛出异常
+// 成员初始化接管s中的资源
         : elements(s.elements), first_free(s.first_free), cap(s.cap)
 {
-    // leave s in a state in which it is safe to run the destructor
+    // 置空s中的数据成员
     s.elements = s.first_free = s.cap = nullptr;
 }
 
+// 拷贝构造函数
 inline
 StrVec::StrVec(const StrVec &s)
 {
-    // call alloc_n_copy to allocate exactly as many elements as in s
+    // 调用alloc_n_copy分配与s一样大的空间
     auto newdata = alloc_n_copy(s.begin(), s.end());
     elements = newdata.first;
     first_free = cap = newdata.second;
 }
 
+//释放空间
 inline
 void StrVec::free()
 {
-    // may not pass deallocate a 0 pointer; if elements is 0, there's no work to do
+    // 判断是否为空指针
     if (elements) {
-        // destroy the old elements in reverse order
+        // 逆序销毁所有旧元素，需要先destory，然后deallocate
         for (auto p = first_free; p != elements; /* empty */)
             alloc.destroy(--p);
+        // 释放空间
         alloc.deallocate(elements, cap - elements);
     }
 }
@@ -125,13 +128,13 @@ StrVec &StrVec::operator=(std::initializer_list<std::string> il)
 inline
 StrVec &StrVec::operator=(StrVec &&rhs) noexcept
 {
-    // direct test for self-assignment
+    // 检测自赋值
     if (this != &rhs) {
-        free();                   // free existing elements
-        elements = rhs.elements;  // take over resources from rhs
+        free();                   // 释放已存在的元素
+        elements = rhs.elements;  // 接管rhs中的资源
         first_free = rhs.first_free;
         cap = rhs.cap;
-        // leave rhs in a destructible state
+        // 置空rhs中的资源
         rhs.elements = rhs.first_free = rhs.cap = nullptr;
     }
     return *this;
@@ -140,7 +143,7 @@ StrVec &StrVec::operator=(StrVec &&rhs) noexcept
 inline
 StrVec &StrVec::operator=(const StrVec &rhs)
 {
-    // call alloc_n_copy to allocate exactly as many elements as in rhs
+    // 分配rhs大小的空间，并拷贝
     auto data = alloc_n_copy(rhs.begin(), rhs.end());
     free();
     elements = data.first;
@@ -151,21 +154,21 @@ StrVec &StrVec::operator=(const StrVec &rhs)
 inline
 void StrVec::reallocate()
 {
-    // we'll allocate space for twice as many elements as the current size
+    // 计算空间大小，目前2倍的空间
     auto newcapacity = size() ? 2 * size() : 1;
 
-    // allocate new memory
+    // 分配空间
     auto newdata = alloc.allocate(newcapacity);
 
-    // move the data from the old memory to the new
+    // 拷贝数据
     auto dest = newdata;  // points to the next free position in the new array
     auto elem = elements; // points to the next element in the old array
     for (size_t i = 0; i != size(); ++i)
-        alloc.construct(dest++, std::move(*elem++));
+        alloc.construct(dest++, std::move(*elem++));//使用move语义，避免string的拷贝
 
-    free();  // free the old space once we've moved the elements
+    free();  // 释放旧的空间
 
-    // update our data structure to point to the new elements
+    // 更新数据结构
     elements = newdata;
     first_free = dest;
     cap = elements + newcapacity;
@@ -180,18 +183,20 @@ StrVec::StrVec(std::initializer_list<std::string> il)
     first_free = cap = newdata.second;
 }
 
+// push_back版本1，提供const的左值引用，拷贝
 inline
 void StrVec::push_back(const std::string& s)
 {
-    chk_n_alloc(); // ensure that there is room for another element
-    // construct a copy of s in the element to which first_free points
+    chk_n_alloc(); // 确保有空间容纳新元素
+    // 在first_free指向的元素中构造s的副本
     alloc.construct(first_free++, s);
 }
 
+// push_back版本2，提供非const的右值引用，移动
 inline
 void StrVec::push_back(std::string &&s)
 {
-    chk_n_alloc(); // reallocates the StrVec if necessary
+    chk_n_alloc(); // 确保空间可容纳
     alloc.construct(first_free++, std::move(s));
 }
 
