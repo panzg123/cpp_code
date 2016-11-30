@@ -1,6 +1,11 @@
 C++的学习记录
 ==============
 
+### utils 工具库
+
++ `list` 从Redis代码中移植过来的双端链表
+
+
 ### boost_demo asio库的实例
 
 ### basic  工具代码
@@ -21,6 +26,8 @@ C++的学习记录
 
 ### tsp 用DP来求解TSP问题，适用于小规模节点
 
+用来解了解华为的软件挑战赛的题，然...
+
 ### TextQuery c++ primer,chapter 12,shared_ptr的使用例子
 
 ### `StrVec,vector<string>`的简单实现
@@ -32,6 +39,8 @@ C++的学习记录
 ### `stress_client.cpp`模拟压力测试的简单代码
 
 ### `16channel_rtsp` 多路多屏RTSP直播
+
+这个例子利用多线程做一个16路的分屏多路RTSP流播放，是在雷博士原本的单路代码上修改的。
 
 效果图：
 
