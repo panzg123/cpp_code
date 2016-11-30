@@ -3,8 +3,43 @@ C++的学习记录
 
 ### utils 工具库
 
-+ `list` 从Redis代码中移植过来的双端链表
+#### **1.list双端链表**
 
+是从`Redis`代码中移植过来的双端链表。
+
+Api Guideline:
+
++ `list *listCreate(void);`//创建链表
++ `void listRelease(list *list);`//释放链表
++ `list *listAddNodeHead(list *list, void *value);`//链表头部，插入节点
++ `list *listAddNodeTail(list *list, void *value);`//链表尾部，插入节点
++ `void listDelNode(list *list, listNode *node);`//链表，删除节点
+
+
+#### **2.logger简易日志库**
+
+从[OneValue](https://github.com/onexsoft/OneValue)移植过来，可以根据实际需求来自定义`MsgType`
+
+如果需要高性能的日志库，可以使用 **[spdlog](https://github.com/gabime/spdlog)**
+
+demo:
+
+```
+#include "logger.h"
+int main()
+{
+	FileLogger fileLogger;
+	if (fileLogger.setFileName("log_test.txt"))
+	{
+		//default use stdout
+		Logger::log(Logger::Message, "Using the log file(%s) output", fileLogger.fileName());
+		//use log_test.txt
+		Logger::setDefaultLogger(&fileLogger);
+		Logger::log(Logger::Error, "Using!!!");
+	}
+	return 0;
+}
+```
 
 ### boost_demo asio库的实例
 
@@ -28,17 +63,23 @@ C++的学习记录
 
 用来解了解华为的软件挑战赛的题，然...
 
-### TextQuery c++ primer,chapter 12,shared_ptr的使用例子
+### StrVec的简单实现
 
-### `StrVec,vector<string>`的简单实现
+### 智能指针的简单实现，引用计数法
 
-### `smart_ptr.cpp`智能指针的简单实现，引用计数法
+`smart_ptr.cpp`
 
-### `locker.h`线程同步方法，互斥锁、信号量、条件变量的封装
+### 线程同步方法，互斥锁、信号量、条件变量的封装
 
-### `stress_client.cpp`模拟压力测试的简单代码
+`locker.h`
 
-### `16channel_rtsp` 多路多屏RTSP直播
+### 模拟压力测试的简单代码
+
+`stress_client.cpp`
+
+### 多路多屏RTSP直播
+
+`16channel_rtsp.c`
 
 这个例子利用多线程做一个16路的分屏多路RTSP流播放，是在雷博士原本的单路代码上修改的。
 
