@@ -19,7 +19,7 @@ void Make_Set(int n)
 int Find_Set(int x)
 {
     if(x != father[x])
-        return Find_Set(father[x]);
+        x = Find_Set(father[x]); //Â·¾¶Ñ¹Ëõ
     return x;
 }
  

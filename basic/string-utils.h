@@ -14,6 +14,8 @@
 #include <vector>
 #include <algorithm>
 #include <cstdio>
+#include <iostream>
+
 /*删除多余的空白符*/
 static inline std::vector<std::string> Compact(
 		const std::vector<std::string> &tokens)
@@ -179,17 +181,18 @@ static inline void WriteFile(const std::string &filepath,
 }
 
 // 读取文件内容到字符串，参考：陈硕
-string cs_readFile(const char* filename)
+std::string cs_readFile(const char* filename)
 {
-  string content;
+  std::string content;
   FILE* fp = ::fopen(filename, "rb");
   if (fp)
   {
     // inefficient!!!
     const int kBufSize = 1024*1024;
     char iobuf[kBufSize];
-    ::setbuffer(fp, iobuf, sizeof iobuf);
-
+    //linux api
+	//setbuffer(fp, iobuf, sizeof iobuf);
+	
     char buf[kBufSize];
     size_t nread = 0;
     while ( (nread = ::fread(buf, 1, sizeof buf, fp)) > 0)

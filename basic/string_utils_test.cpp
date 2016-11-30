@@ -30,7 +30,7 @@ bool eq(std::string s1, std::string s2)
 	return s1 == s2;
 }
 
-#if 1
+#if 0
 int main(int argc, char *argv[])
 {
 
